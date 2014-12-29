@@ -1,10 +1,13 @@
 package core;
+import enums.AlarmConfigState;
 
 /**
  *
- * @author ???
+ * @author Konrad Welc
  */
 public class AlarmConfig implements Config{
+
+    private AlarmConfigState configState;
 
     @Override
     public void increaseTimeValue() {
@@ -21,4 +24,7 @@ public class AlarmConfig implements Config{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public void cycleAlarmStates(){
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -1,10 +1,12 @@
 package core;
-
+import enums.TimeBConfigState;
 /**
  *
- * @author ???
+ * @author Konrad Welc
  */
 public class TimeBConfig implements Config{
+
+    private TimeBConfigState configState;
 
     @Override
     public void increaseTimeValue() {

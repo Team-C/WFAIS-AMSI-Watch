@@ -1,14 +1,18 @@
 package core;
+import enums.TimeAConfigState;
 
 /**
  *
- * @author ???
+ * @author Konrad Welc
  */
 public class TimeAConfig implements Config{
 
+    private TimeAConfigState configState;
+    
+    
     @Override
     public void increaseTimeValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -18,6 +22,10 @@ public class TimeAConfig implements Config{
 
     @Override
     public void getConfigState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void change24hMode(){
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
