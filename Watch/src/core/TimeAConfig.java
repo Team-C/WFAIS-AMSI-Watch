@@ -7,7 +7,7 @@ import enums.TimeAConfigState;
  */
 public class TimeAConfig implements Config{
 
-    private TimeAConfigState configState;
+    TimeAConfigState configState;
     
     
     @Override
@@ -20,8 +20,7 @@ public class TimeAConfig implements Config{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void getConfigState() {
+    public TimeAConfigState getConfigState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

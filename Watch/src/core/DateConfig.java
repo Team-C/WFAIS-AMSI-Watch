@@ -7,7 +7,7 @@ import enums.DateConfigState;
  */
 public class DateConfig implements Config{
     
-    private DateConfigState configState;
+    DateConfigState configState;
     
     @Override
     public void increaseTimeValue() {
@@ -19,8 +19,7 @@ public class DateConfig implements Config{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void getConfigState() {
+    public DateConfigState getConfigState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

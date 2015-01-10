@@ -7,7 +7,7 @@ import enums.AlarmConfigState;
  */
 public class AlarmConfig implements Config{
 
-    private AlarmConfigState configState;
+    AlarmConfigState configState;
 
     @Override
     public void increaseTimeValue() {
@@ -19,8 +19,7 @@ public class AlarmConfig implements Config{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void getConfigState() {
+    public AlarmConfigState getConfigState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

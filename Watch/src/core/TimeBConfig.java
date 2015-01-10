@@ -6,7 +6,7 @@ import enums.TimeBConfigState;
  */
 public class TimeBConfig implements Config{
 
-    private TimeBConfigState configState;
+    TimeBConfigState configState;
 
     @Override
     public void increaseTimeValue() {
@@ -18,8 +18,7 @@ public class TimeBConfig implements Config{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void getConfigState() {
+    public TimeBConfig getConfigState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -9,6 +9,4 @@ public interface Config {
     public void increaseTimeValue();
 
     public void cycleConfigState();
-
-    public void getConfigState();
 }
