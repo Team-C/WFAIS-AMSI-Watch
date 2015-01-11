@@ -24,11 +24,6 @@ public class Clock {
     static boolean timerModeIs24h = true;
     private static boolean stop = false;
     private static boolean stopStopper = false;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
-    private static final SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm ss a");
-    private static final SimpleDateFormat sdfCal = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat sdfStopperInitial = new SimpleDateFormat("HH:mm:ss.SSS");
-    private static final SimpleDateFormat sdfStopperLate = new SimpleDateFormat("HH:mm:ss");
 
     public static void start() {
         stop = false;
@@ -36,6 +31,9 @@ public class Clock {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 incrementSecond();
+                if (!StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
+                    display.ClockPanel.refresh();
+                }
                 if (stop) {
                     cancel();
                 }
@@ -49,6 +47,9 @@ public class Clock {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 incrementStopper();
+                if (StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
+                    display.ClockPanel.refresh();
+                }
                 if (stopStopper) {
                     cancel();
                 }
@@ -145,6 +146,10 @@ public class Clock {
             return true;
         }
         return false;
+    }
+
+    public static boolean timerModeIs24h() {
+        return timerModeIs24h;
     }
 
 }

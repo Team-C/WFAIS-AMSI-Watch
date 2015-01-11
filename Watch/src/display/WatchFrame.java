@@ -16,11 +16,11 @@ public class WatchFrame extends JFrame {
     ClockPanel cPanel;
     ButtonsPanel bPanel;
 
-    WatchFrame() {
+    public WatchFrame() {
         super("Watch");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBackground(new Color(0, 0, 0));
-        this.setLayout(new GridLayout(2,1));
+        this.setLayout(new GridLayout(2, 1));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -28,9 +28,9 @@ public class WatchFrame extends JFrame {
         bPanel = new ButtonsPanel(cPanel);
 
         this.add(cPanel);
-        this.add(bPanel);  
-        
+        this.add(bPanel);
+
         Insets ins = this.getInsets();
-        this.setSize(new Dimension(500+ins.left+ins.right,300+ins.bottom+ins.top));        
+        this.setSize(new Dimension(500 + ins.left + ins.right, 300 + ins.bottom + ins.top));
     }
 }
