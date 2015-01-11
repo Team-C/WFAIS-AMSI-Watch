@@ -1,11 +1,14 @@
 package core;
 
-import static core.StateProcessor.deviceState;
 import enums.AlarmState;
 import enums.DeviceState;
 import enums.SignalState;
+import enums.TimeAConfigState;
+import enums.TimeBConfigState;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,8 +18,8 @@ import java.util.TimerTask;
  */
 public class Clock {
 
-    static Calendar timeA = Calendar.getInstance();
-    static Calendar timeB = Calendar.getInstance();
+    static Calendar timeA = Calendar.getInstance(Locale.GERMANY);
+    static Calendar timeB = Calendar.getInstance(Locale.CHINA);
     static Calendar stopper = Calendar.getInstance();
     static Calendar alarmTime = Calendar.getInstance();
     static AlarmState alarmState = AlarmState.OFF;
@@ -31,6 +34,7 @@ public class Clock {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 incrementSecond();
+                //TODO ALARM CHECK
                 if (!StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
                     display.ClockPanel.refresh();
                 }
@@ -69,10 +73,10 @@ public class Clock {
         stop = false;
         switch (StateProcessor.getDeviceState()) {
             case TIME_A:
-                timeA = Calendar.getInstance();
+                timeA = Calendar.getInstance(Locale.GERMANY);
                 break;
             case TIME_B:
-                timeB = Calendar.getInstance();
+                timeB = Calendar.getInstance(Locale.CHINA);
                 break;
         }
     }
@@ -86,13 +90,15 @@ public class Clock {
     }
 
     private static void incrementSecond() {
-        switch (StateProcessor.getDeviceState()) {
-            case TIME_A:
-                timeA.add(Calendar.SECOND, 1);
-                break;
-            case TIME_B:
-                timeB.add(Calendar.SECOND, 1);
-                break;
+        if (StateProcessor.getConfig() instanceof TimeAConfig && !TimeAConfig.configState.equals(TimeAConfigState.DEFAULT)) {
+            //IF EDITING
+        } else {
+            timeA.add(Calendar.SECOND, 1);
+        }
+        if (StateProcessor.getConfig() instanceof TimeBConfig && !TimeBConfig.configState.equals(TimeBConfigState.DEFAULT)) {
+            //IF EDITING
+        } else {
+            timeB.add(Calendar.SECOND, 1);
         }
     }
 
@@ -104,30 +110,23 @@ public class Clock {
         switch (StateProcessor.getDeviceState()) {
             case TIME_A:
                 if (timerModeIs24h) {
-                    //return sdf.format(timeA.getTime());
                     return timeA;
                 } else {
-                    //return sdf12.format(timeA.getTime());
                     return timeA;
                 }
             case TIME_B:
-                //return sdf.format(timeB.getTime());
                 return timeB;
             case ALARM:
-                //return sdf.format(alarmTime.getTime());
                 return alarmTime;
             case DATE:
-                //return sdfCal.format(timeA.getTime());
                 return timeA;
             case STOPPER:
-                //return sdf.format(stopper.getTime());
                 return stopper;
         }
         return Calendar.getInstance();
     }
 
     public static Calendar getDate() {
-        //return sdfCal.format(timeA.getTime());
         return timeA;
     }
 

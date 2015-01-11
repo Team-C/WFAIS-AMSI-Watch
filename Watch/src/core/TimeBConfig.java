@@ -6,7 +6,7 @@ import enums.TimeBConfigState;
  */
 public class TimeBConfig implements Config{
 
-    TimeBConfigState configState;
+    static TimeBConfigState configState;
 
     @Override
     public void increaseTimeValue() {

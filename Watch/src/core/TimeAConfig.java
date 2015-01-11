@@ -7,7 +7,7 @@ import enums.TimeAConfigState;
  */
 public class TimeAConfig implements Config{
 
-    TimeAConfigState configState;
+    static TimeAConfigState configState;
     
     
     @Override

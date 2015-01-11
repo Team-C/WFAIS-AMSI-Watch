@@ -13,7 +13,7 @@ import enums.TimeBConfigState;
  */
 public class StateProcessor {
 
-    static DeviceState deviceState = DeviceState.TIME_A;
+    static DeviceState deviceState = DeviceState.TIME_B;
     static TimeAConfig timeAConfig = new TimeAConfig();
     static TimeBConfig timeBConfig = new TimeBConfig();
     static DateConfig dateConfig = new DateConfig();

@@ -38,6 +38,11 @@ public class ClockPanel extends JPanel {
     }
 
     public static void refresh() {
+        
+        //TODO DATE DISPLAY
+        //TODO ALARM IMAGES
+        //TODO EDIT STATE CHECK
+        
         switch (StateProcessor.getDeviceState()) {
             case TIME_A:
                 if (Clock.timerModeIs24h()) {
@@ -45,16 +50,23 @@ public class ClockPanel extends JPanel {
                 } else {
                     time.setText(sdf12.format(Clock.getTime().getTime()));
                 }
+                break;
             case TIME_B:
                 time.setText(sdf.format(Clock.getTime().getTime()));
+                break;
             case ALARM:
                 time.setText(sdf.format(Clock.getTime().getTime()));
+                break;
             case DATE:
                 time.setText(sdfCal.format(Clock.getTime().getTime()));
+                break;
             case STOPPER:
-                time.setText(sdf.format(Clock.getTime().getTime()));
+                if (Clock.getTime().get(Calendar.HOUR) == 0 && Clock.getTime().get(Calendar.MINUTE) <= 30) {
+                    time.setText(sdfStopperInitial.format(Clock.getTime().getTime()));
+                } else {
+                    time.setText(sdfStopperLate.format(Clock.getTime().getTime()));
+                }
+                break;
         }
-        //time.setText(core.Clock.getTime().getTime().toString());
-        //time.setText("text");
     }
 }
