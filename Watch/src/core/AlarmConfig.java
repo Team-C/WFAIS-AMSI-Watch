@@ -1,29 +1,42 @@
 package core;
+
 import enums.AlarmConfigState;
+import java.util.Calendar;
 
 /**
  *
  * @author Konrad Welc
  */
-public class AlarmConfig implements Config{
+public class AlarmConfig implements Config {
 
     AlarmConfigState configState;
 
     @Override
     public void increaseTimeValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch (configState) {
+            case DEFAULT:
+                break;
+            case HOURS:
+                Clock.alarmTime.add(Calendar.HOUR, 1);
+                break;
+            case MINUTES:
+                Clock.alarmTime.add(Calendar.MINUTE, 1);
+                break;
+            case SOUND:
+                break;
+        }
     }
 
     @Override
     public void cycleConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        configState.nextState();
     }
 
     public AlarmConfigState getConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return configState;
     }
-    
-    public void cycleAlarmStates(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void cycleAlarmStates() {
+       configState.nextState();
     }
 }

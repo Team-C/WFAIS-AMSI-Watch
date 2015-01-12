@@ -11,16 +11,16 @@ public class StopperConfig implements Config{
     
     @Override
     public void increaseTimeValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Shit shouldn't happened."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void cycleConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        configState.nextState();
     }
 
     public StopperState getConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return configState;
     }
     
     public void run() {

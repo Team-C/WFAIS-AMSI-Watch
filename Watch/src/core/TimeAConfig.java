@@ -1,31 +1,46 @@
 package core;
+
 import enums.TimeAConfigState;
+import java.util.Calendar;
 
 /**
  *
  * @author Konrad Welc
  */
-public class TimeAConfig implements Config{
+public class TimeAConfig implements Config {
 
     static TimeAConfigState configState;
-    
-    
+
     @Override
     public void increaseTimeValue() {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch (configState) {
+            case DEFAULT:
+                break; 
+            case HOURS:
+                Clock.timeA.add(Calendar.HOUR, 1);
+                break;
+            case MINUTES:
+                Clock.timeA.add(Calendar.MINUTE, 1);
+                break;
+            case SECONDS:
+                Clock.timeA.add(Calendar.SECOND, 1);
+                break;
+            case TIMEMODE:
+                change24hMode();
+                break;
+        }
     }
 
     @Override
     public void cycleConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        configState.nextState();
     }
 
     public TimeAConfigState getConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return configState;
     }
-    
-    public void change24hMode(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void change24hMode() {
+        Clock.timerModeIs24h = !Clock.timerModeIs24h;
     }
-    
 }

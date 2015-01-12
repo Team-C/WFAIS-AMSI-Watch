@@ -1,25 +1,37 @@
 package core;
+
 import enums.TimeBConfigState;
+import java.util.Calendar;
+
 /**
  *
  * @author Konrad Welc
  */
-public class TimeBConfig implements Config{
+public class TimeBConfig implements Config {
 
     static TimeBConfigState configState;
 
     @Override
     public void increaseTimeValue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        switch (configState) {
+            case DEFAULT:
+                break;
+            case HOURS:
+                Clock.timeB.add(Calendar.HOUR, 1);
+                break;
+            case MINUTES:
+                Clock.timeB.add(Calendar.MINUTE, 1);
+                break;
+        }
     }
 
     @Override
     public void cycleConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        configState.nextState();
     }
 
-    public TimeBConfig getConfigState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public TimeBConfigState getConfigState() {
+        return configState;
     }
-    
+
 }
