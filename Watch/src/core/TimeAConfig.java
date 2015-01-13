@@ -9,15 +9,15 @@ import java.util.Calendar;
  */
 public class TimeAConfig implements Config {
 
-    static TimeAConfigState configState;
+    static TimeAConfigState configState = TimeAConfigState.DEFAULT;
 
     @Override
     public void increaseTimeValue() {
         switch (configState) {
             case DEFAULT:
-                break; 
+                break;
             case HOURS:
-                Clock.timeA.add(Calendar.HOUR, 1);
+                Clock.timeA.add(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
                 Clock.timeA.add(Calendar.MINUTE, 1);
@@ -33,7 +33,7 @@ public class TimeAConfig implements Config {
 
     @Override
     public void cycleConfigState() {
-        configState.nextState();
+        configState = configState.nextState();
     }
 
     public TimeAConfigState getConfigState() {

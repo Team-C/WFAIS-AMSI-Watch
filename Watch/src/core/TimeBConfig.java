@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 public class TimeBConfig implements Config {
 
-    static TimeBConfigState configState;
+    static TimeBConfigState configState = TimeBConfigState.DEFAULT;
 
     @Override
     public void increaseTimeValue() {
@@ -17,7 +17,7 @@ public class TimeBConfig implements Config {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.timeB.add(Calendar.HOUR, 1);
+                Clock.timeB.add(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
                 Clock.timeB.add(Calendar.MINUTE, 1);
@@ -27,7 +27,7 @@ public class TimeBConfig implements Config {
 
     @Override
     public void cycleConfigState() {
-        configState.nextState();
+        configState = configState.nextState();
     }
 
     public TimeBConfigState getConfigState() {

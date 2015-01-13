@@ -1,37 +1,44 @@
 package core;
+
 import enums.StopperState;
 
 /**
  *
  * @author Konrad Welc
  */
-public class StopperConfig implements Config{
-    
-    StopperState configState;
-    
+public class StopperConfig implements Config {
+
+    static StopperState configState = StopperState.STOPPED;
+
     @Override
     public void increaseTimeValue() {
-        throw new UnsupportedOperationException("Shit shouldn't happened."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Shouldn't happened.");
     }
 
     @Override
     public void cycleConfigState() {
-        configState.nextState();
+        configState = configState.nextState();
+        if (configState.equals(configState.RUNNING)) {
+            run();
+        }
+        if (configState.equals(configState.STOPPED)) {
+            stop();
+        }
     }
 
     public StopperState getConfigState() {
         return configState;
     }
-    
+
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Clock.startStopper();
     }
-    
+
     public void stop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Clock.stopStopper();
     }
-    
+
     public void reset() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Clock.resetStopper();
     }
 }

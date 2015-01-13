@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 public class DateConfig implements Config {
 
-    DateConfigState configState;
+    static DateConfigState configState = DateConfigState.DEFAULT;
 
     @Override
     public void increaseTimeValue() {
@@ -29,7 +29,7 @@ public class DateConfig implements Config {
 
     @Override
     public void cycleConfigState() {
-        configState.nextState();
+        configState = configState.nextState();
     }
 
     public DateConfigState getConfigState() {

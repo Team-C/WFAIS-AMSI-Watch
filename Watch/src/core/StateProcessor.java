@@ -13,7 +13,7 @@ import enums.TimeBConfigState;
  */
 public class StateProcessor {
 
-    static DeviceState deviceState = DeviceState.TIME_B;
+    static DeviceState deviceState = DeviceState.TIME_A;
     static TimeAConfig timeAConfig = new TimeAConfig();
     static TimeBConfig timeBConfig = new TimeBConfig();
     static DateConfig dateConfig = new DateConfig();
@@ -24,7 +24,7 @@ public class StateProcessor {
         switch (deviceState) {
             case TIME_A:
                 if (timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     if (timeAConfig.getConfigState().equals(TimeAConfigState.TIMEMODE)) {
                         timeAConfig.change24hMode();
@@ -35,27 +35,27 @@ public class StateProcessor {
                 break;
             case TIME_B:
                 if (timeBConfig.getConfigState().equals(TimeBConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     timeBConfig.increaseTimeValue();
                 }
                 break;
             case ALARM:
                 if (alarmConfig.getConfigState().equals(AlarmConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     alarmConfig.increaseTimeValue();
                 }
                 break;
             case DATE:
                 if (dateConfig.getConfigState().equals(DateConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     alarmConfig.increaseTimeValue();
                 }
                 break;
             case STOPPER:
-                deviceState.nextState();
+                deviceState = deviceState.nextState();
                 break;
         }
     }
@@ -63,16 +63,24 @@ public class StateProcessor {
     public static void shortPressB() {
         switch (deviceState) {
             case TIME_A:
-                timeAConfig.cycleConfigState();
+                if (!timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
+                    timeAConfig.cycleConfigState();
+                }
                 break;
             case TIME_B:
-                timeBConfig.cycleConfigState();
+                if (!timeBConfig.getConfigState().equals(TimeBConfigState.DEFAULT)) {
+                    timeBConfig.cycleConfigState();
+                }
                 break;
             case ALARM:
-                alarmConfig.cycleConfigState();
+                if (!alarmConfig.getConfigState().equals(AlarmConfigState.DEFAULT)) {
+                    alarmConfig.cycleConfigState();
+                }
                 break;
             case DATE:
-                dateConfig.cycleConfigState();
+                if (!dateConfig.getConfigState().equals(DateConfigState.DEFAULT)) {
+                    dateConfig.cycleConfigState();
+                }
                 break;
             case STOPPER:
                 stopperConfig.cycleConfigState();
@@ -85,7 +93,7 @@ public class StateProcessor {
         switch (deviceState) {
             case TIME_A:
                 if (timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     if (timeAConfig.getConfigState().equals(TimeAConfigState.TIMEMODE)) {
                         timeAConfig.change24hMode();
@@ -99,7 +107,7 @@ public class StateProcessor {
                 break;
             case TIME_B:
                 if (timeBConfig.getConfigState().equals(TimeBConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         timeBConfig.increaseTimeValue();
@@ -108,7 +116,7 @@ public class StateProcessor {
                 break;
             case ALARM:
                 if (alarmConfig.getConfigState().equals(AlarmConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         alarmConfig.increaseTimeValue();
@@ -117,7 +125,7 @@ public class StateProcessor {
                 break;
             case DATE:
                 if (dateConfig.getConfigState().equals(DateConfigState.DEFAULT)) {
-                    deviceState.nextState();
+                    deviceState = deviceState.nextState();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         alarmConfig.increaseTimeValue();
@@ -125,7 +133,7 @@ public class StateProcessor {
                 }
                 break;
             case STOPPER:
-                deviceState.nextState();
+                deviceState = deviceState.nextState();
                 break;
         }
     }

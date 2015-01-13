@@ -35,6 +35,13 @@ public class Clock {
             public void run() {
                 incrementSecond();
                 //TODO ALARM CHECK
+                if ((alarmState.equals(AlarmState.SET)) && (alarmTime.equals(timeA))) {
+                    alarmState = AlarmState.ON;
+                    //TODO ALARM ACTIVATION
+                }
+                if ((signalState.equals(SignalState.SET)) && (timeA.get(Calendar.MINUTE) == 0)) {
+                    //TODO HOUR SIGNAL
+                }
                 if (!StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
                     display.ClockPanel.refresh();
                 }
@@ -46,9 +53,9 @@ public class Clock {
     }
 
     public static void startStopper() {
-        stop = false;
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        stopStopper = false;
+        Timer timer2 = new Timer();
+        timer2.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 incrementStopper();
                 if (StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
@@ -83,7 +90,7 @@ public class Clock {
 
     public static void resetStopper() {
         stopStopper = false;
-        stopper.set(Calendar.HOUR, 0);
+        stopper.set(Calendar.HOUR_OF_DAY, 0);
         stopper.set(Calendar.MINUTE, 0);
         stopper.set(Calendar.SECOND, 0);
         stopper.set(Calendar.MILLISECOND, 0);

@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 public class AlarmConfig implements Config {
 
-    AlarmConfigState configState;
+    static AlarmConfigState configState = AlarmConfigState.DEFAULT;
 
     @Override
     public void increaseTimeValue() {
@@ -17,7 +17,7 @@ public class AlarmConfig implements Config {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.alarmTime.add(Calendar.HOUR, 1);
+                Clock.alarmTime.add(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
                 Clock.alarmTime.add(Calendar.MINUTE, 1);
@@ -29,7 +29,7 @@ public class AlarmConfig implements Config {
 
     @Override
     public void cycleConfigState() {
-        configState.nextState();
+        configState = configState.nextState();
     }
 
     public AlarmConfigState getConfigState() {
@@ -37,6 +37,6 @@ public class AlarmConfig implements Config {
     }
 
     public void cycleAlarmStates() {
-       configState.nextState();
+        configState.nextState();
     }
 }
