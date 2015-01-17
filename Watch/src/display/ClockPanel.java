@@ -9,10 +9,12 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.TimerTask;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -20,7 +22,7 @@ import java.util.TimerTask;
  */
 public class ClockPanel extends JPanel {
 
-    static private JLabel time = new JLabel();
+    static private JLabel time = new JLabel("", SwingConstants.CENTER);
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
     private static final SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm ss a");
@@ -33,6 +35,7 @@ public class ClockPanel extends JPanel {
         this.setBackground(new Color(0, 200, 255, 255));
 
         this.add(this.time);
+        time.setFont(new Font("TimesRoman", Font.BOLD, 70));
 
         this.refresh();
     }

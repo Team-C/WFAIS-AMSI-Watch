@@ -89,7 +89,7 @@ public class StateProcessor {
         }
     }
 
-    public static void longtPressA() {
+    public static void longPressA() {
         switch (deviceState) {
             case TIME_A:
                 if (timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
