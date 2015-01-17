@@ -1,10 +1,14 @@
-package display;
+package sound;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
+/**
+ *
+ * @author Bartosz Bereza
+ */
 public class ToneGenerator {
 
     public static void genButtonATone() {

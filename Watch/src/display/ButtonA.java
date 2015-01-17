@@ -1,6 +1,5 @@
 package display;
 
-import java.awt.event.InputEvent;
 import javax.swing.JButton;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -46,7 +45,6 @@ public class ButtonA extends JButton implements MouseListener {
 
                 // PRESSED LONG
                 core.StateProcessor.longPressA();
-                display.ToneGenerator.genButtonATone();
                 cPanel.refresh();
                 System.out.println("longPressA");
             }
@@ -63,7 +61,6 @@ public class ButtonA extends JButton implements MouseListener {
         // PRESSED SHORT LIKE CLICK
         if (pressStatus == 0) {
             core.StateProcessor.shortPressA();
-            display.ToneGenerator.genButtonATone();
             cPanel.refresh();
             System.out.println("shortPressA");
         }
