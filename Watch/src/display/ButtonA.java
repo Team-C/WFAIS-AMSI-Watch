@@ -38,17 +38,12 @@ public class ButtonA extends JButton implements MouseListener {
             public void run() {
                 pressStatus = 1;
 
-                if (t != null) {
-                    t.cancel();
-                    t = null;
-                }
-
                 // PRESSED LONG
                 core.StateProcessor.longPressA();
                 cPanel.refresh();
                 System.out.println("longPressA");
             }
-        }, 1000, 1);
+        }, 1000, 200);
     }
 
     @Override
