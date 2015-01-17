@@ -6,7 +6,7 @@ import enums.StopperState;
  *
  * @author Konrad Welc
  */
-public class StopperConfig implements Config {
+public class StopperConfig implements Config<StopperState> {
 
     static StopperState configState = StopperState.STOPPED;
 
@@ -26,6 +26,7 @@ public class StopperConfig implements Config {
         }
     }
 
+    @Override
     public StopperState getConfigState() {
         return configState;
     }

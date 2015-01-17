@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  * @author Konrad Welc
  */
-public class TimeAConfig implements Config {
+public class TimeAConfig implements Config<TimeAConfigState> {
 
     static TimeAConfigState configState = TimeAConfigState.DEFAULT;
 
@@ -36,6 +36,7 @@ public class TimeAConfig implements Config {
         configState = configState.nextState();
     }
 
+    @Override
     public TimeAConfigState getConfigState() {
         return configState;
     }

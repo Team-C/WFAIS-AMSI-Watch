@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  * @author Konrad Welc
  */
-public class AlarmConfig implements Config {
+public class AlarmConfig implements Config<AlarmConfigState> {
 
     static AlarmConfigState configState = AlarmConfigState.DEFAULT;
 
@@ -32,6 +32,7 @@ public class AlarmConfig implements Config {
         configState = configState.nextState();
     }
 
+    @Override
     public AlarmConfigState getConfigState() {
         return configState;
     }

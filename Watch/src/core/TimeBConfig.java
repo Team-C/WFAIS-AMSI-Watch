@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  * @author Konrad Welc
  */
-public class TimeBConfig implements Config {
+public class TimeBConfig implements Config<TimeBConfigState> {
 
     static TimeBConfigState configState = TimeBConfigState.DEFAULT;
 
@@ -30,6 +30,7 @@ public class TimeBConfig implements Config {
         configState = configState.nextState();
     }
 
+    @Override
     public TimeBConfigState getConfigState() {
         return configState;
     }

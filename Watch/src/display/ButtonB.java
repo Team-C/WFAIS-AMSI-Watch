@@ -60,7 +60,7 @@ public class ButtonB extends JButton implements MouseListener {
             t = null;
         }
 
-        // PRESSED SHORT LIKE CLICK
+        // PRESSED SHORT
         if (pressStatus == 0) {
             core.StateProcessor.shortPressB();
             display.ToneGenerator.genButtonBTone();

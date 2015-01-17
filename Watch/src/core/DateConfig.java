@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  * @author Konrad Welc
  */
-public class DateConfig implements Config {
+public class DateConfig implements Config<DateConfigState> {
 
     static DateConfigState configState = DateConfigState.DEFAULT;
 
@@ -32,6 +32,7 @@ public class DateConfig implements Config {
         configState = configState.nextState();
     }
 
+    @Override
     public DateConfigState getConfigState() {
         return configState;
     }
