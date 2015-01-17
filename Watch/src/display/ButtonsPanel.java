@@ -1,15 +1,8 @@
 package display;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
 
 /**
  *

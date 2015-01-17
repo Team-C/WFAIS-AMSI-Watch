@@ -89,7 +89,7 @@ public class Clock {
     }
 
     public static void resetStopper() {
-        stopStopper = false;
+        stopStopper = true;
         stopper.set(Calendar.HOUR_OF_DAY, 0);
         stopper.set(Calendar.MINUTE, 0);
         stopper.set(Calendar.SECOND, 0);

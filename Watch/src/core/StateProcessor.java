@@ -21,10 +21,12 @@ public class StateProcessor {
     static StopperConfig stopperConfig = new StopperConfig();
 
     public static void shortPressA() {
+        //TODO Alarm Check
         switch (deviceState) {
             case TIME_A:
                 if (timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     if (timeAConfig.getConfigState().equals(TimeAConfigState.TIMEMODE)) {
                         timeAConfig.change24hMode();
@@ -36,6 +38,7 @@ public class StateProcessor {
             case TIME_B:
                 if (timeBConfig.getConfigState().equals(TimeBConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     timeBConfig.increaseTimeValue();
                 }
@@ -43,6 +46,7 @@ public class StateProcessor {
             case ALARM:
                 if (alarmConfig.getConfigState().equals(AlarmConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     alarmConfig.increaseTimeValue();
                 }
@@ -50,17 +54,21 @@ public class StateProcessor {
             case DATE:
                 if (dateConfig.getConfigState().equals(DateConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
+
                 } else {
                     alarmConfig.increaseTimeValue();
                 }
                 break;
             case STOPPER:
                 deviceState = deviceState.nextState();
+                sound.ToneGenerator.genButtonATone();
                 break;
         }
     }
 
     public static void shortPressB() {
+        //TODO Alarm Check
         switch (deviceState) {
             case TIME_A:
                 if (!timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
@@ -84,16 +92,18 @@ public class StateProcessor {
                 break;
             case STOPPER:
                 stopperConfig.cycleConfigState();
-                //TODO Trigger Short Sound
+                sound.ToneGenerator.genButtonBTone();
                 break;
         }
     }
 
     public static void longPressA() {
+        //TODO Alarm Check
         switch (deviceState) {
             case TIME_A:
                 if (timeAConfig.getConfigState().equals(TimeAConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     if (timeAConfig.getConfigState().equals(TimeAConfigState.TIMEMODE)) {
                         timeAConfig.change24hMode();
@@ -108,6 +118,7 @@ public class StateProcessor {
             case TIME_B:
                 if (timeBConfig.getConfigState().equals(TimeBConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         timeBConfig.increaseTimeValue();
@@ -117,6 +128,7 @@ public class StateProcessor {
             case ALARM:
                 if (alarmConfig.getConfigState().equals(AlarmConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         alarmConfig.increaseTimeValue();
@@ -126,6 +138,7 @@ public class StateProcessor {
             case DATE:
                 if (dateConfig.getConfigState().equals(DateConfigState.DEFAULT)) {
                     deviceState = deviceState.nextState();
+                    sound.ToneGenerator.genButtonATone();
                 } else {
                     for (int i = 0; i < 5; i++) {
                         alarmConfig.increaseTimeValue();
@@ -134,11 +147,13 @@ public class StateProcessor {
                 break;
             case STOPPER:
                 deviceState = deviceState.nextState();
+                sound.ToneGenerator.genButtonATone();
                 break;
         }
     }
 
     public static void longPressB() {
+        //TODO Alarm Check
         switch (deviceState) {
             case TIME_A:
                 timeAConfig.cycleConfigState();
@@ -157,7 +172,7 @@ public class StateProcessor {
                     stopperConfig.cycleConfigState();
                 }
                 stopperConfig.reset();
-                //TODO Trigger Short Sound
+                sound.ToneGenerator.genButtonBTone();
                 break;
         }
     }

@@ -46,7 +46,6 @@ public class ButtonB extends JButton implements MouseListener {
 
                 // PRESSED LONG
                 core.StateProcessor.longPressB();
-                display.ToneGenerator.genButtonBTone();
                 cPanel.refresh();
                 System.out.println("longPressB");
             }
@@ -63,7 +62,6 @@ public class ButtonB extends JButton implements MouseListener {
         // PRESSED SHORT
         if (pressStatus == 0) {
             core.StateProcessor.shortPressB();
-            display.ToneGenerator.genButtonBTone();
             cPanel.refresh();
             System.out.println("shortPressB");
         }
