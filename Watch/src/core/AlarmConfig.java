@@ -25,10 +25,10 @@ public class AlarmConfig implements Config<AlarmConfigState> {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.alarmTime.add(Calendar.HOUR_OF_DAY, 1);
+                Clock.alarmTime.roll(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
-                Clock.alarmTime.add(Calendar.MINUTE, 1);
+                Clock.alarmTime.roll(Calendar.MINUTE, 1);
                 break;
             case SOUND:
                 break;

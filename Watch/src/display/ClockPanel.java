@@ -155,19 +155,19 @@ public class ClockPanel extends JPanel {
                 switch ((enums.AlarmConfigState) core.StateProcessor.getConfig().getConfigState()) {
                     case MINUTES:
                         if (flickerVisible) {
-                            time.setText(new SimpleDateFormat("HH:__ ss").format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:__").format(Clock.getTime().getTime()));
                             flickerVisible = false;
                         } else {
-                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
                             flickerVisible = true;
                         }
                         break;
                     case HOURS:
                         if (flickerVisible) {
-                            time.setText(new SimpleDateFormat("__:mm ss").format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("__:mm").format(Clock.getTime().getTime()));
                             flickerVisible = false;
                         } else {
-                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
                             flickerVisible = true;
                         }
                         break;
@@ -177,7 +177,7 @@ public class ClockPanel extends JPanel {
                         time.setText(alarm.getSoundState().toString());
                         break;
                     case DEFAULT:
-                        time.setText(sdf.format(Clock.getTime().getTime()));
+                       time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
                         time.setFont(new Font("TimesRoman", Font.BOLD, 70));
                 }
                 break;

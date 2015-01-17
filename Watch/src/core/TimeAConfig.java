@@ -17,13 +17,13 @@ public class TimeAConfig implements Config<TimeAConfigState> {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.timeA.add(Calendar.HOUR_OF_DAY, 1);
+                Clock.timeA.roll(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
-                Clock.timeA.add(Calendar.MINUTE, 1);
+                Clock.timeA.roll(Calendar.MINUTE, 1);
                 break;
             case SECONDS:
-                Clock.timeA.add(Calendar.SECOND, 1);
+                Clock.timeA.roll(Calendar.SECOND, 1);
                 break;
             case TIMEMODE:
                 change24hMode();
