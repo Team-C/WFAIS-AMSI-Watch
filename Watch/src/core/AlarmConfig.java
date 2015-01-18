@@ -1,6 +1,13 @@
 package core;
 
 import enums.AlarmConfigState;
+import enums.AlarmState;
+import enums.SignalState;
+import enums.SoundState;
+import static enums.SoundState.ALARM_OFF_SOUND_OFF;
+import static enums.SoundState.ALARM_OFF_SOUND_ON;
+import static enums.SoundState.ALARM_ON_SOUND_OFF;
+import static enums.SoundState.ALARM_ON_SOUND_ON;
 import java.util.Calendar;
 
 /**
@@ -10,6 +17,7 @@ import java.util.Calendar;
 public class AlarmConfig implements Config<AlarmConfigState> {
 
     static AlarmConfigState configState = AlarmConfigState.DEFAULT;
+    static SoundState soundState = SoundState.ALARM_OFF_SOUND_OFF;
 
     @Override
     public void increaseTimeValue() {
@@ -17,13 +25,30 @@ public class AlarmConfig implements Config<AlarmConfigState> {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.alarmTime.add(Calendar.HOUR_OF_DAY, 1);
+                Clock.alarmTime.roll(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
-                Clock.alarmTime.add(Calendar.MINUTE, 1);
+                Clock.alarmTime.roll(Calendar.MINUTE, 1);
                 break;
             case SOUND:
                 break;
+        }
+    }
+
+    public void nextSoundState() {
+        soundState = soundState.nextState();
+        if (soundState == SoundState.ALARM_ON_SOUND_ON) {
+            core.Clock.alarmState = AlarmState.SET;
+            core.Clock.signalState = SignalState.SET;
+        } else if (soundState == SoundState.ALARM_ON_SOUND_OFF) {
+            core.Clock.alarmState = AlarmState.SET;
+            core.Clock.signalState = SignalState.OFF;
+        } else if (soundState == SoundState.ALARM_OFF_SOUND_ON) {
+            core.Clock.alarmState = AlarmState.OFF;
+            core.Clock.signalState = SignalState.SET;
+        } else {
+            core.Clock.alarmState = AlarmState.OFF;
+            core.Clock.signalState = SignalState.OFF;
         }
     }
 
@@ -35,6 +60,10 @@ public class AlarmConfig implements Config<AlarmConfigState> {
     @Override
     public AlarmConfigState getConfigState() {
         return configState;
+    }
+
+    public SoundState getSoundState() {
+        return soundState;
     }
 
     public void cycleAlarmStates() {

@@ -1,5 +1,6 @@
 package core;
 
+import enums.AlarmConfigState;
 import enums.AlarmState;
 import enums.DeviceState;
 import enums.SignalState;
@@ -11,6 +12,10 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import sound.ToneGenerator;
 
 /**
  *
@@ -27,6 +32,8 @@ public class Clock {
     static boolean timerModeIs24h = true;
     private static boolean stop = false;
     private static boolean stopStopper = false;
+    static int alarmTimer = 0;
+    static int bells = 0;
 
     public static void start() {
         stop = false;
@@ -34,13 +41,30 @@ public class Clock {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 incrementSecond();
-                //TODO ALARM CHECK
-                if ((alarmState.equals(AlarmState.SET)) && (alarmTime.equals(timeA))) {
+                if ((alarmState.equals(AlarmState.SET)) && (alarmTime.before(timeA)) && (AlarmConfig.configState.equals(AlarmConfigState.DEFAULT))) {
                     alarmState = AlarmState.ON;
-                    //TODO ALARM ACTIVATION
+                    sound.ToneGenerator.genAlarmTone();
                 }
-                if ((signalState.equals(SignalState.SET)) && (timeA.get(Calendar.MINUTE) == 0)) {
-                    //TODO HOUR SIGNAL
+                if ((alarmState.equals(AlarmState.ON)) && (alarmTimer >= 60)) {
+                    alarmState = AlarmState.OFF;
+                    alarmTimer = 0;
+                    sound.ToneGenerator.stopAlarm();
+                }
+                if ((alarmState.equals(AlarmState.ON)) && (alarmTimer < 60)) {
+                    alarmTimer++;
+                }
+                if ((signalState.equals(SignalState.SET)) && (timeA.get(Calendar.MINUTE) == 0) && (timeA.get(Calendar.SECOND) == 0)) {
+                    Timer timer = new Timer();
+                    bells = timeA.get(Calendar.HOUR);
+                    timer.scheduleAtFixedRate(new TimerTask() {
+                        public void run() {
+                            bells--;
+                            sound.ToneGenerator.genButtonBTone();
+                            if (bells <= 0) {
+                                cancel();
+                            }
+                        }
+                    }, 0, 1000);
                 }
                 if (!StateProcessor.getDeviceState().equals(DeviceState.STOPPER)) {
                     display.ClockPanel.refresh();

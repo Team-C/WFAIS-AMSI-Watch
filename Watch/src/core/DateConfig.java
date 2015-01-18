@@ -17,12 +17,10 @@ public class DateConfig implements Config<DateConfigState> {
             case DEFAULT:
                 break;
             case MONTH:
-                Clock.timeA.add(Calendar.MONTH, 1);
-                Clock.timeB.add(Calendar.MONTH, 1);
+                Clock.timeA.roll(Calendar.MONTH, 1);
                 break;
             case DAY:
-                Clock.timeA.add(Calendar.DAY_OF_MONTH, 1);
-                Clock.timeB.add(Calendar.DAY_OF_MONTH, 1);
+                Clock.timeA.roll(Calendar.DAY_OF_MONTH, 1);
                 break;
         }
     }

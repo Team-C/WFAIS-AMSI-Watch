@@ -1,23 +1,19 @@
 package display;
 
+import core.AlarmConfig;
 import core.Clock;
 import core.StateProcessor;
-
-import enums.*;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.SwingConstants;
 
 /**
@@ -159,46 +155,60 @@ public class ClockPanel extends JPanel {
                 break;
             case ALARM:
                 switch ((enums.AlarmConfigState) core.StateProcessor.getConfig().getConfigState()) {
-                    case SOUND:
-                        break;
                     case MINUTES:
-                        System.out.println("lel");
                         if (flickerVisible) {
-                            System.out.println("lel3");
-                            time.setText(new SimpleDateFormat("HH:__ ss").format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:__").format(Clock.getTime().getTime()));
                             flickerVisible = false;
                         } else {
-                            System.out.println("lel2");
-                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
                             flickerVisible = true;
                         }
                         break;
                     case HOURS:
                         if (flickerVisible) {
-                            time.setText(new SimpleDateFormat("__:mm ss").format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("__:mm").format(Clock.getTime().getTime()));
                             flickerVisible = false;
                         } else {
-                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
                             flickerVisible = true;
                         }
                         break;
+                    case SOUND:
+                        AlarmConfig alarm = (AlarmConfig) core.StateProcessor.getConfig();
+                        time.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                        time.setText(alarm.getSoundState().toString());
+                        break;
                     case DEFAULT:
-                        time.setText(sdf.format(Clock.getTime().getTime()));
+                       time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
+                        time.setFont(new Font("TimesRoman", Font.BOLD, 70));
                 }
-                time.setText(sdf.format(Clock.getTime().getTime()));
                 break;
             case DATE:
                 switch ((enums.DateConfigState) core.StateProcessor.getConfig().getConfigState()) {
                     case DAY:
+                        if (flickerVisible) {
+                            time.setText(new SimpleDateFormat("yyyy-MM-__").format(Clock.getTime().getTime()));
+                            flickerVisible = false;
+                        } else {
+                            time.setText(sdfCal.format(Clock.getTime().getTime()));
+                            flickerVisible = true;
+                        }
                         break;
                     case MONTH:
+                        if (flickerVisible) {
+                            time.setText(new SimpleDateFormat("yyyy-__-dd").format(Clock.getTime().getTime()));
+                            flickerVisible = false;
+                        } else {
+                            time.setText(sdfCal.format(Clock.getTime().getTime()));
+                            flickerVisible = true;
+                        }
                         break;
                     case DEFAULT:
                         time.setText(sdfCal.format(Clock.getTime().getTime()));
                 }
                 break;
             case STOPPER:
-                if (Clock.getTime().get(Calendar.HOUR) == 0 && Clock.getTime().get(Calendar.MINUTE) <= 30) {
+                if (Clock.getTime().get(Calendar.HOUR_OF_DAY) == 0 && Clock.getTime().get(Calendar.MINUTE) <= 30) {
                     time.setText(sdfStopperInitial.format(Clock.getTime().getTime()));
                 } else {
                     time.setText(sdfStopperLate.format(Clock.getTime().getTime()));

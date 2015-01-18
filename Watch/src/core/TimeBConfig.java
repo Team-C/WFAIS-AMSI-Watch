@@ -17,10 +17,10 @@ public class TimeBConfig implements Config<TimeBConfigState> {
             case DEFAULT:
                 break;
             case HOURS:
-                Clock.timeB.add(Calendar.HOUR_OF_DAY, 1);
+                Clock.timeB.roll(Calendar.HOUR_OF_DAY, 1);
                 break;
             case MINUTES:
-                Clock.timeB.add(Calendar.MINUTE, 1);
+                Clock.timeB.roll(Calendar.MINUTE, 1);
                 break;
         }
     }

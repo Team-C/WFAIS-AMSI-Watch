@@ -1,5 +1,9 @@
 package sound;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
@@ -10,6 +14,8 @@ import javax.sound.sampled.SourceDataLine;
  * @author Bartosz Bereza
  */
 public class ToneGenerator {
+
+    private static boolean stop = false;
 
     public static void genButtonATone() {
         try {
@@ -28,7 +34,24 @@ public class ToneGenerator {
     }
 
     public static void genAlarmTone() {
+        Timer timer = new Timer();
+        stop = false;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (stop) {
+                    cancel();
+                }
+                try {
+                    generateTone(1000, 1000, 128, true);
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(ToneGenerator.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }, 0, 1000);
+    }
 
+    public static void stopAlarm() {
+        stop = true;
     }
 
     private static void generateTone(int hz, int msecs, int volume, boolean addHarmonic)
