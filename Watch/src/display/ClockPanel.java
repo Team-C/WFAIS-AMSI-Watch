@@ -26,8 +26,8 @@ import javax.swing.SwingConstants;
  */
 public class ClockPanel extends JPanel {
 
-    static private JLabel time = new JLabel("", SwingConstants.CENTER);
-    static private Timer t;
+    private static JLabel time = new JLabel("", SwingConstants.CENTER);
+    private static JLabel alarm = new JLabel("", SwingConstants.CENTER);
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
     private static final SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm ss a");
@@ -38,11 +38,13 @@ public class ClockPanel extends JPanel {
     private static boolean flickerVisible = true;
 
     ClockPanel() {
-        this.setLayout(new GridLayout(1, 1));
+        this.setLayout(new GridLayout(3, 1));
         this.setBackground(new Color(0, 200, 255, 255));
 
+        this.add(this.alarm);
         this.add(this.time);
-        time.setFont(new Font("TimesRoman", Font.BOLD, 70));
+        time.setFont(new Font("TimesRoman", Font.BOLD, 60));
+        alarm.setFont(new Font("TimesRoman", Font.BOLD, 20));
 
         this.refresh();
     }
@@ -156,6 +158,33 @@ public class ClockPanel extends JPanel {
                 }
                 break;
             case ALARM:
+                switch ((enums.AlarmConfigState) core.StateProcessor.getConfig().getConfigState()) {
+                    case SOUND:
+                        break;
+                    case MINUTES:
+                        System.out.println("lel");
+                        if (flickerVisible) {
+                            System.out.println("lel3");
+                            time.setText(new SimpleDateFormat("HH:__ ss").format(Clock.getTime().getTime()));
+                            flickerVisible = false;
+                        } else {
+                            System.out.println("lel2");
+                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            flickerVisible = true;
+                        }
+                        break;
+                    case HOURS:
+                        if (flickerVisible) {
+                            time.setText(new SimpleDateFormat("__:mm ss").format(Clock.getTime().getTime()));
+                            flickerVisible = false;
+                        } else {
+                            time.setText(sdf.format(Clock.getTime().getTime()));
+                            flickerVisible = true;
+                        }
+                        break;
+                    case DEFAULT:
+                        time.setText(sdf.format(Clock.getTime().getTime()));
+                }
                 time.setText(sdf.format(Clock.getTime().getTime()));
                 break;
             case DATE:
