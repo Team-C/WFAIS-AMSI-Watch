@@ -3,6 +3,7 @@ package display;
 import core.AlarmConfig;
 import core.Clock;
 import core.StateProcessor;
+import enums.AlarmState;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -13,7 +14,6 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
-import java.util.Timer;
 import javax.swing.SwingConstants;
 
 /**
@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 public class ClockPanel extends JPanel {
 
     private static JLabel time = new JLabel("", SwingConstants.CENTER);
-    private static JLabel alarm = new JLabel("", SwingConstants.CENTER);
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
     private static final SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm ss a");
@@ -34,13 +33,13 @@ public class ClockPanel extends JPanel {
     private static boolean flickerVisible = true;
 
     ClockPanel() {
-        this.setLayout(new GridLayout(3, 1));
+        this.setLayout(new GridLayout(1, 1));
         this.setBackground(new Color(0, 200, 255, 255));
 
-        this.add(this.alarm);
+        //this.add(this.alarm);
+        //this.add(this.signal);
         this.add(this.time);
         time.setFont(new Font("TimesRoman", Font.BOLD, 60));
-        alarm.setFont(new Font("TimesRoman", Font.BOLD, 20));
 
         this.refresh();
     }
@@ -50,6 +49,7 @@ public class ClockPanel extends JPanel {
         //TODO DATE DISPLAY
         //TODO ALARM IMAGES
         //TODO EDIT STATE CHECK
+        SettingsPanel.refresh();
         switch (StateProcessor.getDeviceState()) {
             case TIME_A:
                 switch ((enums.TimeAConfigState) core.StateProcessor.getConfig().getConfigState()) {
@@ -174,13 +174,12 @@ public class ClockPanel extends JPanel {
                         }
                         break;
                     case SOUND:
-                        AlarmConfig alarm = (AlarmConfig) core.StateProcessor.getConfig();
-                        time.setFont(new Font("TimesRoman", Font.BOLD, 30));
-                        time.setText(alarm.getSoundState().toString());
+                        time.setFont(new Font("TimesRoman", Font.BOLD, 25));
+                        time.setText("Setting the alarm and signal hours");
                         break;
                     case DEFAULT:
                        time.setText(new SimpleDateFormat("HH:mm").format(Clock.getTime().getTime()));
-                        time.setFont(new Font("TimesRoman", Font.BOLD, 70));
+                        time.setFont(new Font("TimesRoman", Font.BOLD, 60));
                 }
                 break;
             case DATE:
